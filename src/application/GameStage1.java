@@ -57,7 +57,10 @@ public class GameStage1 extends Application {
         bg.getChildren().add(bgView);
         //adding the stackpane to group
         base.getChildren().add(bg);
-
+        ArrayList<Lawnmover> lawnmovers = new ArrayList<Lawnmover>();
+        for (int i=0; i<5; i++) {
+        	lawnmovers.add(new Lawnmover(110, 140 + 71*i, base));
+        }
         setLawn();
         lane1.get(0).setOnAction(event -> {
             try {

@@ -30,7 +30,7 @@ public class Plants
         this.plantGroup=g;
         //this.img=null;
     }
-
+    public void step() {}
     public int getHealth()
     {
         return this.health;

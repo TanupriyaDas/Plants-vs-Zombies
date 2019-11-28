@@ -43,6 +43,13 @@ public class Zombies
 
 
     }
+
+    public void step()
+    {
+        this.posX -= 2;
+        sta.setTranslateX(posX);
+        //System.out.print('s');
+    }
     public int getHealth()
     {
         return this.health;

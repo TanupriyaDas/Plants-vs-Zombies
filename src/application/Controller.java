@@ -8,23 +8,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Controller extends Application {
 	public GameStage1 game=new GameStage1();
 	public Stage window = new Stage();
 	public static String [] passArgs;
+	private Button returning=new Button();
 	public void switchToGameStage(ActionEvent event) throws Exception {
 
 		Stage window1 = (Stage)((Node)event.getSource()).getScene().getWindow();
 		window1.close();
 		game.start(window);
+		//game.main(passArgs);
 //		Parent GameStageParent = FXMLLoader.load(getClass().getResource("GameStage.fxml"));
 //		Scene GameStageScene = new Scene(GameStageParent);
 //		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 //		window.setScene(GameStageScene);
 //		window.show();
 	}
+
 	public void switchToWelconeScreen(ActionEvent event) throws IOException {
 		Parent GameStageParent = FXMLLoader.load(getClass().getResource("WelcomePage.fxml"));
 		Scene GameStageScene = new Scene(GameStageParent);
@@ -36,10 +40,12 @@ public class Controller extends Application {
 		passArgs=args;
 		Parent GameStageParent = FXMLLoader.load(getClass().getResource("Menu.fxml"));
 		Scene GameStageScene = new Scene(GameStageParent);
-		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-		window.setScene(GameStageScene);
-		window.show();
+		Stage window1 = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window1.setScene(GameStageScene);
+		window1.show();
 	}
+
+
 	public void showChooseLevelScreen(ActionEvent event) throws IOException {
 		Parent GameStageParent = FXMLLoader.load(getClass().getResource("ChooseLevel.fxml"));
 		Scene GameStageScene = new Scene(GameStageParent);

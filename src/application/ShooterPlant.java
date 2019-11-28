@@ -12,8 +12,8 @@ public class ShooterPlant extends Plants
         super(x,y,g);
 
     }
-    public void shoot()
-    {
-
+    @Override
+    public void step(){
+        this.peas.step();
     }
 }

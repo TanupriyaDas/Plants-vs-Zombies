@@ -2,6 +2,7 @@ package application;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,20 +23,26 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameStage1 extends Application {
-    public static Stage gameStage=new Stage();
-    public static Group base=new Group();
-    public static String [] passArgs;
-    public static Stage menuStage=new Stage();
-    public static ArrayList<Button> lane1=new ArrayList<Button>();
-    public static ArrayList<Button> lane2=new ArrayList<Button>();
-    public static ArrayList<Button> lane3=new ArrayList<Button>();
-    public static ArrayList<Button> lane4=new ArrayList<Button>();
-    public static ArrayList<Button> lane5=new ArrayList<Button>();
-    public static Plants selected=new Plants(0,0,base);
-    public static Scene bgScene;
-    public static TranslateTransition sunDrop=new TranslateTransition();
+    public Stage gameStage=new Stage();
+    public Group base=new Group();
+    public String [] passArgs;
+    public Stage menuStage=new Stage();
+    public ArrayList<Button> lane1=new ArrayList<Button>();
+    public ArrayList<Button> lane2=new ArrayList<Button>();
+    public ArrayList<Button> lane3=new ArrayList<Button>();
+    public ArrayList<Button> lane4=new ArrayList<Button>();
+    public ArrayList<Button> lane5=new ArrayList<Button>();
+    public Plants selected=new Plants(0,0,base);
+    public ArrayList<Zombies> setZombs=new ArrayList<Zombies>();
+    public Scene bgScene;
+    public ArrayList<Plants> sowedPlants=new ArrayList<Plants>();
+    public TranslateTransition sunDrop=new TranslateTransition();
+    private Timer timer;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -62,350 +69,10 @@ public class GameStage1 extends Application {
         	lawnmovers.add(new Lawnmover(110, 140 + 71*i, base));
         }
         setLawn();
-        lane1.get(0).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(0).getTranslateX(),lane1.get(0).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(0).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(0).getTranslateX(),lane2.get(0).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(0).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(0).getTranslateX(),lane3.get(0).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(0).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(0).getTranslateX(),lane4.get(0).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(0).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(0).getTranslateX(),lane5.get(0).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
+        setLawnAction();
 
-        lane1.get(1).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(1).getTranslateX(),lane1.get(1).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(1).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(1).getTranslateX(),lane2.get(1).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(1).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(1).getTranslateX(),lane3.get(1).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(1).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(1).getTranslateX(),lane4.get(1).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(1).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(1).getTranslateX(),lane5.get(1).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-
-        lane1.get(2).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(2).getTranslateX(),lane1.get(2).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(2).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(2).getTranslateX(),lane2.get(2).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(2).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(2).getTranslateX(),lane3.get(2).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(2).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(2).getTranslateX(),lane4.get(2).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(2).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(2).getTranslateX(),lane5.get(2).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-
-        lane1.get(3).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(3).getTranslateX(),lane1.get(3).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(3).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(3).getTranslateX(),lane2.get(3).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(3).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(3).getTranslateX(),lane3.get(3).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(3).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(3).getTranslateX(),lane4.get(3).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(3).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(3).getTranslateX(),lane5.get(3).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-
-        lane1.get(4).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(4).getTranslateX(),lane1.get(4).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(4).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(4).getTranslateX(),lane2.get(4).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(4).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(4).getTranslateX(),lane3.get(4).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(4).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(4).getTranslateX(),lane4.get(4).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(4).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(4).getTranslateX(),lane5.get(4).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-
-        lane1.get(5).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(5).getTranslateX(),lane1.get(5).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(5).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(5).getTranslateX(),lane2.get(5).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(5).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(5).getTranslateX(),lane3.get(5).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(5).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(5).getTranslateX(),lane4.get(5).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(5).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(5).getTranslateX(),lane5.get(5).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-
-        lane1.get(6).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(6).getTranslateX(),lane1.get(6).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(6).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(6).getTranslateX(),lane2.get(6).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(6).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(6).getTranslateX(),lane3.get(6).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(6).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(6).getTranslateX(),lane4.get(6).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(6).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(6).getTranslateX(),lane5.get(6).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-
-        lane1.get(7).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(7).getTranslateX(),lane1.get(7).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(7).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(7).getTranslateX(),lane2.get(7).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(7).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(7).getTranslateX(),lane3.get(7).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(7).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(7).getTranslateX(),lane4.get(7).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(7).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(7).getTranslateX(),lane5.get(7).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-
-        lane1.get(8).setOnAction(event -> {
-            try {
-                selected.sow(lane1.get(8).getTranslateX(),lane1.get(8).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane2.get(8).setOnAction(event -> {
-            try {
-                selected.sow(lane2.get(8).getTranslateX(),lane2.get(8).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane3.get(8).setOnAction(event -> {
-            try {
-                selected.sow(lane3.get(8).getTranslateX(),lane3.get(8).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane4.get(8).setOnAction(event -> {
-            try {
-                selected.sow(lane4.get(8).getTranslateX(),lane4.get(8).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        lane5.get(8).setOnAction(event -> {
-            try {
-                selected.sow(lane5.get(8).getTranslateX(),lane5.get(8).getTranslateY());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-
-        System.out.println(" sun being formed");
-        Image sun=new Image(new FileInputStream("src\\application\\images\\sun2.png"));
-        ImageView sunView=new ImageView(sun);
-        sunView.setFitWidth(40);
-        sunView.setFitHeight(40);
-        sunView.setOpacity(1);
-        StackPane sunStack=new StackPane(sunView);
-        base.getChildren().add(sunStack);
-        sunStack.setTranslateX(500);
-        sunStack.setTranslateY(50);
-        System.out.println(" sun being formed");
-        sunDrop.setDuration(Duration.millis(5000));
-        sunDrop.setNode(sunStack);
-        sunDrop.setFromY(50);
-        sunDrop.setToY(500);
-        sunDrop.setCycleCount(25);
-        sunDrop.setAutoReverse(false);
-        sunDrop.play();
-
-        setZombies();
+        sundrop();
+        setZombies(1);
 
 
         Label sunPoints=new Label("200");
@@ -424,7 +91,80 @@ public class GameStage1 extends Application {
         timerPane.setTranslateX(575);
         timerPane.setTranslateY(515);
 
-        //adding plant cards in the bar
+        addPlantCards();
+
+
+        //Adding button for main menu
+        ButtonBar menu=new ButtonBar();
+        Button menuButton=new Button("menu\nmenu");
+        menuButton.minHeight(94);
+        menuButton.minWidth(62);
+        menu.getButtons().add(menuButton);
+        menu.setOpacity(0);
+        Controller c=new Controller();
+        menuButton.setOnAction(event -> {
+            try {
+                c.showMenu(event,passArgs);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+//        menuButton.setOnAction(event -> {
+//            Menu.main(passArgs);
+//        });
+
+        base.getChildren().add(menu);
+        menu.setTranslateX(625);
+        menu.setTranslateY(10);
+
+        //adding group to Scene
+        try
+        {
+            bgScene=new Scene(base,712,545);
+        }catch (IllegalArgumentException e)
+        {
+            System.out.println("background exits");
+        }
+
+        startTimer();
+        gameStage.setScene(bgScene);
+        gameStage.show();
+
+
+    }
+
+    private void updateAnimation() {
+        // Update plant animation
+        for (Plants plant : sowedPlants) {
+            plant.step();
+        }
+        // Update Zombie animation
+        for (Zombies zombie : setZombs) {
+            zombie.step();
+            //System.out.print('z');
+        }
+    }
+
+    private void startTimer() {
+        this.timer = new java.util.Timer();
+        TimerTask timerTask = new TimerTask() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        updateAnimation();
+                        //System.out.print('q');
+                    }
+                });
+            }
+        };
+
+        long frameTimeInMilliseconds = (long)(50);
+        this.timer.schedule(timerTask, 0, frameTimeInMilliseconds);
+    }
+
+
+    public void addPlantCards() throws FileNotFoundException {
         //sunflower card
         Image sunFlowerCard=new Image(new FileInputStream("src\\application\\images\\card_sunflower.jpeg"));
         ImageView sunFlowerView=new ImageView(sunFlowerCard);
@@ -490,8 +230,6 @@ public class GameStage1 extends Application {
         walnutPane.setTranslateY(1);
         walnutPane.setTranslateX(298);
 
-        //making buttons for plant choices
-        //sunflower
         Button sunFlowerButton=new Button("sunn\nsunn\nsunn");
         sunFlowerButton.minWidth(45);
         sunFlowerButton.minHeight(71);
@@ -564,45 +302,81 @@ public class GameStage1 extends Application {
         cherryBombButton.setTranslateY(1);
         walnutButton.setTranslateX(300);
         walnutButton.setTranslateY(1);
+    }
 
-        //Adding button for main menu
-        ButtonBar menu=new ButtonBar();
-        Button menuButton=new Button("menu\nmenu");
-        menuButton.minHeight(94);
-        menuButton.minWidth(62);
-        menu.getButtons().add(menuButton);
-        menu.setOpacity(0);
-        Controller c=new Controller();
-        menuButton.setOnAction(event -> {
-            try {
-                c.showMenu(event,passArgs);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    public void sundrop() throws FileNotFoundException {
+        System.out.println(" sun being formed");
+        Image sun=new Image(new FileInputStream("src\\application\\images\\sun2.png"));
+        ImageView sunView=new ImageView(sun);
+        sunView.setFitWidth(40);
+        sunView.setFitHeight(40);
+        sunView.setOpacity(1);
+        StackPane sunStack=new StackPane(sunView);
+        base.getChildren().add(sunStack);
+        sunStack.setTranslateX(500);
+        sunStack.setTranslateY(50);
+        System.out.println(" sun being formed");
+        sunDrop.setDuration(Duration.millis(5000));
+        sunDrop.setNode(sunStack);
+        sunDrop.setFromY(50);
+        sunDrop.setToY(500);
+        sunDrop.setCycleCount(25);
+        sunDrop.setAutoReverse(false);
+        sunDrop.play();
+    }
 
-//        menuButton.setOnAction(event -> {
-//            Menu.main(passArgs);
-//        });
-
-        base.getChildren().add(menu);
-        menu.setTranslateX(625);
-        menu.setTranslateY(10);
-
-        //adding group to Scene
-        try
+    public void setLawnAction()
+    {
+        int i;
+        for( i=0;i<9;i++)
         {
-            bgScene=new Scene(base,712,545);
-        }catch (IllegalArgumentException e)
-        {
-            System.out.println("background exits");
+            int finalI = i;
+            lane1.get(i).setOnAction(event -> {
+                try {
+                    selected.sow(lane1.get(finalI).getTranslateX(),lane1.get(finalI).getTranslateY());
+                    sowedPlants.add(selected);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+            int finalI1 = i;
+            lane2.get(i).setOnAction(event -> {
+                try {
+                    selected.sow(lane2.get(finalI1).getTranslateX(),lane2.get(finalI1).getTranslateY());
+                    sowedPlants.add(selected);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+            int finalI2 = i;
+            lane3.get(i).setOnAction(event -> {
+                try {
+                    selected.sow(lane3.get(finalI2).getTranslateX(),lane3.get(finalI2).getTranslateY());
+                    sowedPlants.add(selected);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+            int finalI3 = i;
+            lane4.get(i).setOnAction(event -> {
+                try {
+                    selected.sow(lane4.get(finalI3).getTranslateX(),lane4.get(finalI3).getTranslateY());
+                    sowedPlants.add(selected);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+            int finalI4 = i;
+            lane5.get(i).setOnAction(event -> {
+                try {
+                    selected.sow(lane5.get(finalI4).getTranslateX(),lane5.get(finalI4).getTranslateY());
+                    sowedPlants.add(selected);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+
         }
-
-
-        gameStage.setScene(bgScene);
-        gameStage.show();
-
-
     }
 
     public void setLawn()
@@ -660,19 +434,36 @@ public class GameStage1 extends Application {
         }
     }
 
-    public static void setZombies() throws FileNotFoundException {
-        Zombies zomb1=new OrdinaryZombie(648,355,base);
-        Zombies zomb2=new ConeZombie(648,425,base);
+    public void setZombies(int level) throws FileNotFoundException {
+        // for any level i, we will have 4i ordinary, 2i cone, i bucket zombies
+        Random rand = new Random();
+        int screenEnd = 700;
+        for(int i=0; i<level; i++) {
+            Zombies z1=new OrdinaryZombie(screenEnd + rand.nextInt(1000),355,base);
+            Zombies z2=new OrdinaryZombie(screenEnd + rand.nextInt(1000),425,base);
+            Zombies z3=new OrdinaryZombie(screenEnd + rand.nextInt(1000),285,base);
+            Zombies z4=new OrdinaryZombie(screenEnd + rand.nextInt(1000),145,base);
+            setZombs.add(z1);setZombs.add(z2);setZombs.add(z3);setZombs.add(z4);
 
-
-
-        zomb1.advance();
-        zomb2.advance();
+            //z1.advance();z2.advance();z3.advance();z4.advance();
+        }
+        for(int i=0; i<level; i++) {
+            Zombies z1=new ConeZombie(screenEnd + rand.nextInt(1000),355,base);
+            Zombies z2=new ConeZombie(screenEnd + rand.nextInt(1000),425,base);
+            setZombs.add(z1);setZombs.add(z2);
+            //z1.advance();z2.advance();
+        }
+        for(int i=0; i<level; i++) {
+            Zombies z1=new BucketZombie(screenEnd + rand.nextInt(1000),425,base);
+            setZombs.add(z1);
+            //z1.advance();
+        }
     }
 
 
-    public static void main(String [] args)
+    public void main(String [] args)
     {
         passArgs=args;
+        launch(passArgs);
     }
 }

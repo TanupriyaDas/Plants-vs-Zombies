@@ -20,7 +20,7 @@ public class Pea
     protected Group peaGroup;
     protected int damage;
     public Pea(double x,double y,Group g) throws FileNotFoundException {
-        this.posX=x;
+        this.posX=x+50;
         this.myLane=y;
         this.peaGroup=g;
         this.peaImg = new Image(new FileInputStream("src\\application\\images\\Pea.jpeg"));
@@ -28,7 +28,7 @@ public class Pea
         this.peaStack.getChildren().add(peaView);
         this.peaGroup.getChildren().add(peaStack);
         peaStack.setTranslateY(myLane+10);
-        peaStack.setTranslateX(posX+55);
+        peaStack.setTranslateX(posX);
         this.damage=10;
     }
     public void advance()
@@ -40,6 +40,10 @@ public class Pea
         t.setCycleCount(1000);
         t.setAutoReverse(false);
         t.play();
+    }
+    public void step(){
+        this.posX += 10;
+        peaStack.setTranslateX(posX);
     }
 
     public double getPosX()

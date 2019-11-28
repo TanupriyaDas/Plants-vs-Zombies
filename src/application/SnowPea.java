@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 public class SnowPea extends Pea
 {
     private int speedDamage;
-    public SnowPea(int x, int y, Group g) throws FileNotFoundException
+    public SnowPea(double x, double y, Group g) throws FileNotFoundException
     {
         super(x,y,g);
         this.speedDamage=10;

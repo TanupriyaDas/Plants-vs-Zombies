@@ -24,7 +24,7 @@ public class PeaShooter extends ShooterPlant
     public void sow(double x,double y) throws FileNotFoundException {
         super.sow(x,y);
         peas=new Pea(x,y,plantGroup);
-        peas.advance();
+        //peas.advance();
 
     }
 }

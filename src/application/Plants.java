@@ -11,8 +11,8 @@ import java.io.FileNotFoundException;
 public class Plants
 {
     protected int health;
-    protected int x;
-    protected int y;
+    public int x;
+    public int y;
     protected final int price;
     protected int wait_time;
     protected Image img;
@@ -22,7 +22,7 @@ public class Plants
 
     public Plants(int x,int y,Group g)
     {
-        this.health=10;
+        this.health=70;
         this.x=x;
         this.y=y;
         this.price=0;
@@ -68,6 +68,8 @@ public class Plants
                 throw new NullPointerException();
             }
             this.plantGroup.getChildren().add(plantStack);
+            this.x=(int)x;
+            this.y=(int)y;
             plantStack.setTranslateX(x);
             plantStack.setTranslateY(y);
         } catch (NullPointerException e) {

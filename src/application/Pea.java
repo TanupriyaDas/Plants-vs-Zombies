@@ -12,8 +12,9 @@ import java.io.FileNotFoundException;
 
 public class Pea
 {
-    protected double posX;
-    protected double myLane;
+    public final double originalPos;
+    public double posX;
+    public double myLane;
     protected Image peaImg;
     protected ImageView peaView;
     protected StackPane peaStack = new StackPane();
@@ -21,6 +22,7 @@ public class Pea
     protected int damage;
     public Pea(double x,double y,Group g) throws FileNotFoundException {
         this.posX=x+50;
+        this.originalPos=posX;
         this.myLane=y;
         this.peaGroup=g;
         this.peaImg = new Image(new FileInputStream("src\\application\\images\\Pea.jpeg"));
@@ -43,6 +45,7 @@ public class Pea
     }
     public void step(){
         this.posX += 10;
+
         peaStack.setTranslateX(posX);
     }
 

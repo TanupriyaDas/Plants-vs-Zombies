@@ -11,7 +11,7 @@ public class BucketZombie extends Zombies
 {
     public BucketZombie(int x, int y, Group g) throws FileNotFoundException {
         super(x,y,g);
-        this.health=30;
+        this.health=25;
         this.zombImg=new Image(new FileInputStream("src\\application\\images\\Buckethead_Zombie.jpeg"));
         this.zombView=new ImageView(zombImg);
         zombView.setFitHeight(102);

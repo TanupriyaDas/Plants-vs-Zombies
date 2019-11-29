@@ -3,14 +3,16 @@ package application;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public class Lawnmover {
-	private int posX;
-	private int posY;
+	public int posX;
+	public int posY;
 	private Group g;
 	private ImageView imgView;
 	private StackPane sta;
@@ -30,6 +32,15 @@ public class Lawnmover {
         this.g.getChildren().add(sta);
         sta.setTranslateX(posX);
         sta.setTranslateY(posY);
+	}
+	public void runover(){
+		TranslateTransition t=new TranslateTransition();
+		t.setDuration(Duration.millis(1000));
+		t.setNode(sta);
+		t.setByX(posX+700);
+		t.setCycleCount(1);
+		t.setAutoReverse(false);
+		t.play();
 	}
 	
 }

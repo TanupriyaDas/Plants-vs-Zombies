@@ -10,7 +10,7 @@ import javafx.util.Duration;
 public class Zombies
 {
     protected int health;
-    protected int posX;
+    public int posX;
     protected double speed;
     protected int lane;
     protected boolean isMoving;
@@ -18,11 +18,12 @@ public class Zombies
     protected ImageView zombView;
     protected Group g;
     protected StackPane sta;
+    public int step =2;
     public TranslateTransition zombMove=new TranslateTransition();
 
     public Zombies(int x,int y,Group g)
     {
-        this.health=20;
+        this.health=10;
         this.posX=x;
         this.speed=10;
         this.lane=y;
@@ -46,7 +47,7 @@ public class Zombies
 
     public void step()
     {
-        this.posX -= 2;
+        this.posX -= step;
         sta.setTranslateX(posX);
         //System.out.print('s');
     }

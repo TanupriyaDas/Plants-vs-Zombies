@@ -11,10 +11,11 @@ import java.io.FileNotFoundException;
 public class SunPlant extends Plants
 {
     protected Image star;
-    protected int sunGenerationTime;
+    protected int sunGenerationTime=1000;
     protected StackPane starStack=new StackPane();
     protected ImageView starView;
-    public SunPlant(int x, int y, Group g) {
+    public SunPlant(int x, int y, Group g)
+    {
         super(x,y,g);
         try
         {
@@ -27,5 +28,16 @@ public class SunPlant extends Plants
             e.printStackTrace();
         }
         this.sunGenerationTime=10;
+    }
+
+    public void step()
+    {
+        if(sunGenerationTime==0)
+            this.plantGroup.getChildren().add(starStack);
+        else
+            sunGenerationTime--;
+        starStack.setTranslateX(x);
+        starStack.setTranslateY(y);
+
     }
 }

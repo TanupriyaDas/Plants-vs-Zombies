@@ -22,10 +22,7 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class GameStage1 extends Application {
     public Stage gameStage=new Stage();
@@ -42,7 +39,11 @@ public class GameStage1 extends Application {
     public Scene bgScene;
     public ArrayList<Plants> sowedPlants=new ArrayList<Plants>();
     public TranslateTransition sunDrop=new TranslateTransition();
+    public ArrayList<Lawnmover> lawnmovers = new ArrayList<Lawnmover>();
     private Timer timer;
+    public static int level=1;
+    public Label timing;
+    public int timeleft=0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -64,15 +65,16 @@ public class GameStage1 extends Application {
         bg.getChildren().add(bgView);
         //adding the stackpane to group
         base.getChildren().add(bg);
-        ArrayList<Lawnmover> lawnmovers = new ArrayList<Lawnmover>();
+        //ArrayList<Lawnmover> lawnmovers = new ArrayList<Lawnmover>();
         for (int i=0; i<5; i++) {
         	lawnmovers.add(new Lawnmover(110, 140 + 71*i, base));
         }
+        //System.out.println(lawnmovers.size());
         setLawn();
         setLawnAction();
 
         sundrop();
-        setZombies(1);
+        setZombies(level);
 
 
         Label sunPoints=new Label("200");
@@ -83,10 +85,10 @@ public class GameStage1 extends Application {
         sunPts.setTranslateX(31);
         sunPts.setTranslateY(74);
 
-        Label timer=new Label("400 secs left");
-        timer.setFont(Font.font("verdana",FontWeight.BOLD,FontPosture.REGULAR,15));
+        timing=new Label("400 sec left");
+        timing.setFont(Font.font("verdana",FontWeight.BOLD,FontPosture.REGULAR,15));
         StackPane timerPane=new StackPane();
-        timerPane.getChildren().add(timer);
+        timerPane.getChildren().add(timing);
         base.getChildren().add(timerPane);
         timerPane.setTranslateX(575);
         timerPane.setTranslateY(515);
@@ -134,7 +136,97 @@ public class GameStage1 extends Application {
 
     }
 
+    private void collider() {
+        Iterator<Plants> plant = sowedPlants.iterator();
+        Iterator<Lawnmover> lw = lawnmovers.iterator();
+        Iterator<Zombies> zombie = setZombs.iterator();
+        //System.out.print(lw.hasNext());
+        while(lw.hasNext()) {
+
+            Lawnmover l = lw.next();
+            zombie = setZombs.iterator();
+            //System.out.println("lw "+l.posX+" "+l.posY);
+            while(zombie.hasNext()) {
+                Zombies z = zombie.next();
+               // System.out.print(l.posX+" "+l.posY+" ");
+                //System.out.println("lw "+l.posX+" "+l.posY);
+                //System.out.println(Math.abs(z.lane-l.posY));
+                if(Math.abs(z.posX-l.posX)<10 && Math.abs(z.lane-l.posY)<10) {
+                    l.runover();
+                    Iterator<Zombies> zombie1 = setZombs.iterator();
+                    while(zombie1.hasNext()){
+                        Zombies z1 = zombie1.next();
+                        if(Math.abs(z1.lane-l.posY)<10 && z.posX<715){
+                            z1.zombView.setOpacity(0);
+                            //TODO delete this zombie
+                        }
+                    }
+                    //TODO remove lawnmover from arraylist
+//                    System.out.println("lw "+l.posX+" "+l.posY);
+//                    System.out.println("z "+z.posX+" "+z.lane);
+                    //System.out.print('l');
+                }
+            }
+        }
+
+        plant = sowedPlants.iterator();
+        while(plant.hasNext()) {
+            Plants p = plant.next();
+            zombie = setZombs.iterator();
+            while(zombie.hasNext()) {
+
+                Zombies z = zombie.next();
+                //handle if plant reach zombie
+                if(Math.abs(p.x-z.posX)<10 && Math.abs(p.y-z.lane)<35) {
+                    //System.out.println(p.x + "--" + p.y);
+                    //System.out.println(z.posX + " " + z.lane);
+                    z.step = 0;
+                    p.health -= 1;
+                    if(p.health<=0) {
+                        p.imgView.setOpacity(0);
+                        if(p instanceof ShooterPlant) {
+                            Pea pea = ((ShooterPlant) p).peas;
+                            pea.peaView.setOpacity(0);
+                        }
+                        plant.remove();
+                        z.step = 2;
+                        //TODO remove plant from arraylist
+                    }
+                }
+
+                //handle if player win
+                if(setZombs.isEmpty()) {
+                    //TODO raise new player win exception
+                }
+                if(p instanceof ShooterPlant) {
+                    Pea pea = ((ShooterPlant)p).peas;
+                    // handle if pea goes out of screen
+                    if(pea.posX>715) {
+                        pea.posX=pea.originalPos;
+                        pea.peaStack.setTranslateX(pea.posX);
+                        pea.peaView.setOpacity(1);
+                    }
+
+                    // handle if hit pea hit zombie
+                    if(Math.abs((pea.posX-z.posX))<10 && Math.abs(pea.myLane-z.lane)<20) {
+                        System.out.print('h');
+                        z.health-=4;
+                        pea.peaView.setOpacity(0);
+                        if(z.health<=0) {
+                            z.zombView.setOpacity(0);
+                            ((Iterator) zombie).remove();
+                        }
+                    }
+
+
+
+                }
+            }
+        }
+    }
+
     private void updateAnimation() {
+        collider();
         // Update plant animation
         for (Plants plant : sowedPlants) {
             plant.step();
@@ -144,6 +236,7 @@ public class GameStage1 extends Application {
             zombie.step();
             //System.out.print('z');
         }
+        timing.setText((4000- ++timeleft)/10+"secs left");
     }
 
     private void startTimer() {
@@ -327,12 +420,14 @@ public class GameStage1 extends Application {
 
     public void setLawnAction()
     {
+
         int i;
         for( i=0;i<9;i++)
         {
             int finalI = i;
             lane1.get(i).setOnAction(event -> {
                 try {
+                    //System.out.println("plant"+lane1.get(finalI).getTranslateX()+" "+lane1.get(finalI).getTranslateY());
                     selected.sow(lane1.get(finalI).getTranslateX(),lane1.get(finalI).getTranslateY());
                     sowedPlants.add(selected);
                 } catch (FileNotFoundException e) {
@@ -342,6 +437,7 @@ public class GameStage1 extends Application {
             int finalI1 = i;
             lane2.get(i).setOnAction(event -> {
                 try {
+                    //System.out.println("plant"+lane2.get(finalI1).getTranslateX()+" "+lane2.get(finalI1).getTranslateY());
                     selected.sow(lane2.get(finalI1).getTranslateX(),lane2.get(finalI1).getTranslateY());
                     sowedPlants.add(selected);
                 } catch (FileNotFoundException e) {
@@ -351,6 +447,7 @@ public class GameStage1 extends Application {
             int finalI2 = i;
             lane3.get(i).setOnAction(event -> {
                 try {
+                    //System.out.println("plant"+lane3.get(finalI2).getTranslateX()+" "+lane3.get(finalI2).getTranslateY());
                     selected.sow(lane3.get(finalI2).getTranslateX(),lane3.get(finalI2).getTranslateY());
                     sowedPlants.add(selected);
                 } catch (FileNotFoundException e) {
@@ -360,6 +457,7 @@ public class GameStage1 extends Application {
             int finalI3 = i;
             lane4.get(i).setOnAction(event -> {
                 try {
+                    //System.out.println("plant"+lane4.get(finalI3).getTranslateX()+" "+lane4.get(finalI3).getTranslateY());
                     selected.sow(lane4.get(finalI3).getTranslateX(),lane4.get(finalI3).getTranslateY());
                     sowedPlants.add(selected);
                 } catch (FileNotFoundException e) {
@@ -369,6 +467,7 @@ public class GameStage1 extends Application {
             int finalI4 = i;
             lane5.get(i).setOnAction(event -> {
                 try {
+                    //System.out.println("plant"+lane5.get(finalI4).getTranslateX()+" "+lane5.get(finalI4).getTranslateY());
                     selected.sow(lane5.get(finalI4).getTranslateX(),lane5.get(finalI4).getTranslateY());
                     sowedPlants.add(selected);
                 } catch (FileNotFoundException e) {
@@ -435,9 +534,15 @@ public class GameStage1 extends Application {
     }
 
     public void setZombies(int level) throws FileNotFoundException {
+
         // for any level i, we will have 4i ordinary, 2i cone, i bucket zombies
         Random rand = new Random();
         int screenEnd = 700;
+        if(level==0){
+            Zombies z1=new OrdinaryZombie(screenEnd + rand.nextInt(1000),355,base);
+            setZombs.add(z1);
+            return;
+        }
         for(int i=0; i<level; i++) {
             Zombies z1=new OrdinaryZombie(screenEnd + rand.nextInt(1000),355,base);
             Zombies z2=new OrdinaryZombie(screenEnd + rand.nextInt(1000),425,base);

@@ -16,10 +16,12 @@ public class Controller extends Application {
 	public Stage window = new Stage();
 	public static String [] passArgs;
 	private Button returning=new Button();
+	private int level;
 	public void switchToGameStage(ActionEvent event) throws Exception {
 
 		Stage window1 = (Stage)((Node)event.getSource()).getScene().getWindow();
 		window1.close();
+
 		game.start(window);
 		//game.main(passArgs);
 //		Parent GameStageParent = FXMLLoader.load(getClass().getResource("GameStage.fxml"));
@@ -66,11 +68,14 @@ public class Controller extends Application {
 	public void exit() {
 		System.exit(0);
 	}
-	public void setLevel1() { }
-	public void setLevel2() { }
-	public void setLevel3() { }
-	public void setLevel4() { }
-	public void setLevel5() { }
+	public void setLevel1()
+	{
+		GameStage1.level = 1;
+	}
+	public void setLevel2() { GameStage1.level = 2;}
+	public void setLevel3() { GameStage1.level = 3; }
+	public void setLevel4() { GameStage1.level = 4;}
+	public void setLevel5() { GameStage1.level = 5;}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

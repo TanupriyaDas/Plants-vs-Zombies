@@ -19,7 +19,19 @@ public class PeaShooter extends ShooterPlant
         plantStack=new StackPane();
         this.plantStack.getChildren().add(imgView);
     }
-
+    public void refresh() throws FileNotFoundException {
+        this.img=new Image(new FileInputStream("src\\application\\images\\peaShooter1.png"));
+        this.imgView=new ImageView(img);
+        imgView.setFitWidth(50);
+        imgView.setFitHeight(62);
+        plantStack=new StackPane();
+        this.plantStack.getChildren().add(imgView);
+        this.plantGroup.getChildren().add(plantStack);
+        this.x=(int)x;
+        this.y=(int)y;
+        plantStack.setTranslateX(x);
+        plantStack.setTranslateY(y);
+    }
     @Override
     public void sow(double x,double y) throws FileNotFoundException {
         super.sow(x,y);

@@ -7,20 +7,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-public class Zombies
+import java.io.FileNotFoundException;
+import java.io.Serializable;
+
+public class Zombies implements Serializable
 {
     protected int health;
     public int posX;
     protected double speed;
     protected int lane;
     protected boolean isMoving;
-    protected Image zombImg;
-    protected ImageView zombView;
-    protected Group g;
-    protected StackPane sta;
+    protected transient Image zombImg;
+    protected transient ImageView zombView;
+    protected transient Group g;
+    protected transient StackPane sta;
     public int step =2;
-    public TranslateTransition zombMove=new TranslateTransition();
+    public transient TranslateTransition zombMove=new TranslateTransition();
 
+    public void refresh() throws FileNotFoundException {
+        System.out.println("We're fucked");
+    }
     public Zombies(int x,int y,Group g)
     {
         this.health=10;

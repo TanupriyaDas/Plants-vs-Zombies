@@ -14,9 +14,9 @@
          </image>
       </ImageView>
       <ButtonBar layoutX="510.0" layoutY="131.0" opacity="0.0" prefHeight="63.0" prefWidth="173.0">
-        <buttons>
-          <Button mnemonicParsing="false" onAction="#switchToGameStage" prefHeight="63.0" prefWidth="187.0" text="Button" />
-        </buttons>
+         <buttons>
+            <Button mnemonicParsing="false" onAction="#switchToGameStage" prefHeight="63.0" prefWidth="187.0" text="Button" />
+         </buttons>
       </ButtonBar>
       <ButtonBar layoutX="518.0" layoutY="378.0" opacity="0.0" prefHeight="46.0" prefWidth="163.0">
          <buttons>
@@ -30,7 +30,7 @@
       </ButtonBar>
       <ButtonBar layoutX="510.0" layoutY="230.0" opacity="0.0" prefHeight="46.0" prefWidth="163.0">
          <buttons>
-            <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="187.0" text="Button" />
+            <Button mnemonicParsing="false" onAction="#resume" prefHeight="63.0" prefWidth="187.0" text="Button" />
          </buttons>
       </ButtonBar>
    </children>

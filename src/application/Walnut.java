@@ -22,4 +22,17 @@ public class Walnut extends BarrierPlant
         this.plantStack.getChildren().add(imgView);
         //this.plantGroup.getChildren().add(plantStack);
     }
+    public void refresh() throws FileNotFoundException {
+        this.img=new Image(new FileInputStream("src\\application\\images\\walnut1.png"));
+        this.imgView=new ImageView(img);
+        imgView.setFitWidth(50);
+        imgView.setFitHeight(62);
+        plantStack=new StackPane();
+        this.plantStack.getChildren().add(imgView);
+        this.plantGroup.getChildren().add(plantStack);
+        this.x=(int)x;
+        this.y=(int)y;
+        plantStack.setTranslateX(x);
+        plantStack.setTranslateY(y);
+    }
 }

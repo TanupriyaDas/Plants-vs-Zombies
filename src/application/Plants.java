@@ -7,18 +7,19 @@ import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 
-public class Plants
+public class Plants implements Serializable
 {
     protected int health;
     public int x;
     public int y;
     protected final int price;
     protected int wait_time;
-    protected Image img;
-    protected ImageView imgView;
-    protected StackPane plantStack;
-    protected Group plantGroup;
+    protected transient Image img;
+    protected transient ImageView imgView;
+    protected transient StackPane plantStack;
+    protected transient Group plantGroup;
 
     public Plants(int x,int y,Group g)
     {
@@ -29,6 +30,9 @@ public class Plants
         this.wait_time=0;
         this.plantGroup=g;
         //this.img=null;
+    }
+    public void refresh() throws FileNotFoundException {
+        System.out.println("We're fucked");
     }
     public void step() throws InterruptedException {}
     public int getHealth()

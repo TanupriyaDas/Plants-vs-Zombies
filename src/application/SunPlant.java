@@ -10,10 +10,10 @@ import java.io.FileNotFoundException;
 
 public class SunPlant extends Plants
 {
-    protected Image star;
+    protected transient Image star;
     protected int sunGenerationTime=1000;
-    protected StackPane starStack=new StackPane();
-    protected ImageView starView;
+    protected transient StackPane starStack=new StackPane();
+    protected transient ImageView starView;
     public SunPlant(int x, int y, Group g)
     {
         super(x,y,g);
@@ -29,7 +29,11 @@ public class SunPlant extends Plants
         }
         this.sunGenerationTime=10;
     }
-
+    public void refresh() throws FileNotFoundException {
+        this.star=new Image(new FileInputStream("src\\application\\images\\Sun.jpeg"));
+        this.starView=new ImageView(star);
+        this.starStack.getChildren().add(starView);
+    }
 //    public void step()
 //    {
 //        if(sunGenerationTime==0)

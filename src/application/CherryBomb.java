@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.concurrent.TimeUnit;
 
 public class CherryBomb extends BombPlant
 {
@@ -18,6 +19,12 @@ public class CherryBomb extends BombPlant
         imgView.setFitHeight(68);
         plantStack=new StackPane();
         this.plantStack.getChildren().add(imgView);
-        this.plantGroup.getChildren().add(plantStack);
+        //this.plantGroup.getChildren().add(plantStack);
     }
+//    @Override
+//    public void step() throws InterruptedException {
+//        TimeUnit.SECONDS.sleep(1);
+//        plantGroup.getChildren().remove(plantStack);
+//
+//    }
 }

@@ -30,7 +30,7 @@ public class Plants
         this.plantGroup=g;
         //this.img=null;
     }
-    public void step() {}
+    public void step() throws InterruptedException {}
     public int getHealth()
     {
         return this.health;
@@ -80,6 +80,7 @@ public class Plants
             System.out.println("plant not seleced");
         }
     }
+
 
 
     public void shrink()

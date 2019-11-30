@@ -11,7 +11,8 @@ public class BarrierPlant extends Plants
     public BarrierPlant(int x, int y, Group g) throws FileNotFoundException
     {
         super(x,y,g);
-        this.barrierTime=20;
+        this.barrierTime=100;
+        this.health+=barrierTime;
         //this.img=new Image(new FileInputStream("walnut_full_life.gif"));
     }
 

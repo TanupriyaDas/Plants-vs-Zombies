@@ -12,10 +12,10 @@ public class SnowPeaShooter extends ShooterPlant
 {
     public SnowPeaShooter(int x, int y, Group g) throws FileNotFoundException {
         super(x,y,g);
-        this.img=new Image(new FileInputStream("src\\application\\images\\snowPeaShooter.jpg"));
+        this.img=new Image(new FileInputStream("src\\application\\images\\SnowPeaShooter1.png"));
         this.imgView=new ImageView(img);
-        imgView.setFitWidth(56);
-        imgView.setFitHeight(68);
+        imgView.setFitWidth(50);
+        imgView.setFitHeight(62);
         plantStack=new StackPane();
         this.plantStack.getChildren().add(imgView);
         //this.plantGroup.getChildren().add(plantStack);

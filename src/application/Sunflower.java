@@ -13,7 +13,7 @@ public class Sunflower extends SunPlant
     public Sunflower(int x, int y, Group g) throws FileNotFoundException
     {
         super(x,y,g);
-        this.img=new Image(new FileInputStream("src\\application\\images\\sunflower.jpeg"));
+        this.img=new Image(new FileInputStream("src\\application\\images\\sunflower1.png"));
         this.imgView=new ImageView(img);
         imgView.setFitWidth(56);
         imgView.setFitHeight(68);

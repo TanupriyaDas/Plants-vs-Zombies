@@ -30,14 +30,14 @@ public class SunPlant extends Plants
         this.sunGenerationTime=10;
     }
 
-    public void step()
-    {
-        if(sunGenerationTime==0)
-            this.plantGroup.getChildren().add(starStack);
-        else
-            sunGenerationTime--;
-        starStack.setTranslateX(x);
-        starStack.setTranslateY(y);
-
-    }
+//    public void step()
+//    {
+//        if(sunGenerationTime==0)
+//            this.plantGroup.getChildren().add(starStack);
+//        else
+//            sunGenerationTime--;
+//        starStack.setTranslateX(x);
+//        starStack.setTranslateY(y);
+//
+//    }
 }

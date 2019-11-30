@@ -14,12 +14,12 @@ public class Walnut extends BarrierPlant
     public Walnut(int x, int y, Group g) throws FileNotFoundException
     {
         super(x,y,g);
-        this.img=new Image(new FileInputStream("src\\application\\images\\walnut.jpeg"));
+        this.img=new Image(new FileInputStream("src\\application\\images\\walnut1.png"));
         this.imgView=new ImageView(img);
-        imgView.setFitWidth(56);
-        imgView.setFitHeight(68);
+        imgView.setFitWidth(50);
+        imgView.setFitHeight(62);
         plantStack=new StackPane();
         this.plantStack.getChildren().add(imgView);
-        this.plantGroup.getChildren().add(plantStack);
+        //this.plantGroup.getChildren().add(plantStack);
     }
 }

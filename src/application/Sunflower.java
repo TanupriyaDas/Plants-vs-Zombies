@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 
 public class Sunflower extends SunPlant
 {
-    public static int plantSunCounter=50;
+    public int plantSunCounter=50;
     public Sunflower(int x, int y, Group g) throws FileNotFoundException
     {
         super(x,y,g);

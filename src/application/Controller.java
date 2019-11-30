@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Controller extends Application {
+	public static int fileCounter = 1;
 	public static GameStage1 game = new GameStage1();
 	public Stage window = new Stage();
 	public static String [] passArgs;
@@ -38,29 +39,74 @@ public class Controller extends Application {
 //		window.setScene(GameStageScene);
 //		window.show();
 	}
-	public void resume(ActionEvent event) throws IOException {
+	public void returnFromMenu(ActionEvent event) throws Exception {
 		Stage window1 = (Stage)((Node)event.getSource()).getScene().getWindow();
 		window1.close();
 
 		try {
-			game = deserialize();
+			game = deserialize(0);
 			game.rStart(); //TODO see if we can use a new window
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			switchToGameStage(event);
+		}
+	}
+	public void resume(ActionEvent event) throws IOException {
+		Parent GameStageParent = FXMLLoader.load(getClass().getResource("ResumeChoose.fxml"));
+		Scene GameStageScene = new Scene(GameStageParent);
+		window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window.setScene(GameStageScene);
+		window.show();
+	}
+	public void resume1(ActionEvent event) throws Exception {
+		Stage window1 = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window1.close();
+
+		try {
+			game = deserialize(1);
+			game.rStart(); //TODO see if we can use a new window
+		}
+		catch(Exception e) {
+			switchToGameStage(event);
+		}
+	}
+	public void resume3(ActionEvent event) throws Exception {
+		Stage window1 = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window1.close();
+
+		try {
+			game = deserialize(3);
+			game.rStart(); //TODO see if we can use a new window
+		}
+		catch(Exception e) {
+			switchToGameStage(event);
+		}
+	}
+	public void resume2(ActionEvent event) throws Exception {
+		Stage window1 = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window1.close();
+
+		try {
+			game = deserialize(2);
+			game.rStart(); //TODO see if we can use a new window
+		}
+		catch(Exception e) {
+			switchToGameStage(event);
 		}
 	}
 	private static void serialize(GameStage1 g) throws IOException {
 		ObjectOutputStream out = null;
 
-		Files.deleteIfExists(Paths.get("game.txt"));
+		Files.deleteIfExists(Paths.get(Integer.toString(fileCounter)+".txt"));
 		try {
 			out = new ObjectOutputStream (
-					new FileOutputStream("game.txt"));
+					new FileOutputStream(Integer.toString(fileCounter)+".txt"));
 			out.writeObject(g);
 		} finally {
 			out.close();
 		}
+		fileCounter++;
+		if(fileCounter>3) {fileCounter=1;}
 //		Files.deleteIfExists(Paths.get("lwarr.txt"));
 //		try {
 //			out = new ObjectOutputStream (
@@ -70,11 +116,11 @@ public class Controller extends Application {
 //			out.close();
 //		}
 	}
-	private static GameStage1 deserialize() throws FileNotFoundException, IOException, ClassNotFoundException {
+	private static GameStage1 deserialize(int c) throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream in = null;
 		try {
 			in = new ObjectInputStream (
-					new FileInputStream("game.txt"));
+					new FileInputStream(Integer.toString(c)+".txt"));
 			GameStage1 game = (GameStage1) in.readObject();
 //			ObjectInputStream in1 = null;
 //			try {
@@ -99,6 +145,16 @@ public class Controller extends Application {
 		window.show();
 	}
 	public void showMenu(ActionEvent event , String[] args) throws IOException {
+		ObjectOutputStream out = null;
+
+		Files.deleteIfExists(Paths.get("0.txt"));
+		try {
+			out = new ObjectOutputStream (
+					new FileOutputStream("0.txt"));
+			out.writeObject(this.game);
+		} finally {
+			out.close();
+		}
 		passArgs=args;
 		Parent GameStageParent = FXMLLoader.load(getClass().getResource("Menu.fxml"));
 		Scene GameStageScene = new Scene(GameStageParent);
@@ -122,7 +178,7 @@ public class Controller extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.exit(0);
+		//System.exit(0);
 	}
 
 	public static void main(String [] args)
@@ -134,11 +190,11 @@ public class Controller extends Application {
 	public void exit() {
 		System.exit(0);
 	}
-	public void setLevel1() { GameStage1.level = 1;}
-	public void setLevel2() { GameStage1.level = 2;}
-	public void setLevel3() { GameStage1.level = 3; }
-	public void setLevel4() { GameStage1.level = 4;}
-	public void setLevel5() { GameStage1.level = 5;}
+	public void setLevel1(ActionEvent event) throws Exception  { GameStage1.level = 1; switchToGameStage(event); }
+	public void setLevel2(ActionEvent event) throws Exception  { GameStage1.level = 2; switchToGameStage(event); }
+	public void setLevel3(ActionEvent event) throws Exception  { GameStage1.level = 3; switchToGameStage(event); }
+	public void setLevel4(ActionEvent event) throws Exception  { GameStage1.level = 4; switchToGameStage(event); }
+	public void setLevel5(ActionEvent event) throws Exception  { GameStage1.level = 5; switchToGameStage(event); }
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

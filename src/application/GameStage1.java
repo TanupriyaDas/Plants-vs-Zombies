@@ -60,6 +60,7 @@ public class GameStage1 extends Application implements Serializable {
     private static Random r;
     private int sunPoint;
     private transient ImageView[] plantCards=new ImageView[5];
+    private int []viewPlantCards=new int[5];
 
     public void initiateEverything() {
         if(level==0)
@@ -378,20 +379,10 @@ public class GameStage1 extends Application implements Serializable {
             // level over
             throw new LeveloverException();
         }
-        // Update plant animation
-//        if(sunx.size()>0 && plantSunCounter<=0)
-//        {
-//            int l=sunx.size();
-//            System.out.println(l);
-//            for(int i=0;i<l;i++)
-//            {
-//                //System.out.println('a');
-//                sunProduce(sunx.get(i),suny.get(i));
-//            }
-//            plantSunCounter=150;
-//        }
-        //plantSunCounter--;
-        //System.out.println(plantSunCounter);
+        for(int i=0;i<5;i++)
+        {
+            viewPlantCards[i]++;
+        }
         for (Plants plant : sowedPlants) {
             plant.step();
             if(plant instanceof CherryBomb)
@@ -436,12 +427,18 @@ public class GameStage1 extends Application implements Serializable {
             switch (level)
             {
                 case 1:
-                    if(sunPoint>=50)
-                        plantCards[0].setOpacity(1);
+                    if(sunPoint>=50) {
+                        if(viewPlantCards[0]>=100)
+                            plantCards[0].setOpacity(1);
+                        else plantCards[0].setOpacity(0.75);
+                    }
                     else
                         plantCards[0].setOpacity(0.5);
-                    if(sunPoint>=100)
-                        plantCards[1].setOpacity(1);
+                    if(sunPoint>=100){
+                        if(viewPlantCards[1]>=100)
+                            plantCards[1].setOpacity(1);
+                        else plantCards[1].setOpacity(0.75);
+                    }
                     else
                         plantCards[1].setOpacity(0.5);
                     plantCards[2].setOpacity(0);
@@ -450,16 +447,25 @@ public class GameStage1 extends Application implements Serializable {
                     //System.out.println("level 1");
                     break;
                 case 2:
-                    if(sunPoint>=50)
-                        plantCards[0].setOpacity(1);
+                    if(sunPoint>=50){
+                        if(viewPlantCards[0]>=100)
+                            plantCards[0].setOpacity(1);
+                        else plantCards[0].setOpacity(0.75);
+                    }
                     else
                         plantCards[0].setOpacity(0.5);
-                    if(sunPoint>=100)
-                        plantCards[1].setOpacity(1);
+                    if(sunPoint>=100){
+                        if(viewPlantCards[1]>=100)
+                            plantCards[1].setOpacity(1);
+                        else plantCards[1].setOpacity(0.75);
+                    }
                     else
                         plantCards[1].setOpacity(0.5);
-                    if(sunPoint>=125)
-                        plantCards[2].setOpacity(1);
+                    if(sunPoint>=125){
+                        if(viewPlantCards[2]>=100)
+                            plantCards[2].setOpacity(1);
+                        else plantCards[2].setOpacity(0.75);
+                    }
                     else
                         plantCards[2].setOpacity(0.5);
                     plantCards[3].setOpacity(0);
@@ -467,44 +473,71 @@ public class GameStage1 extends Application implements Serializable {
                     //System.out.println("level 2");
                     break;
                 case 3:
-                    if(sunPoint>=50)
-                        plantCards[0].setOpacity(1);
+                    if(sunPoint>=50){
+                        if(viewPlantCards[0]>=100)
+                            plantCards[0].setOpacity(1);
+                        else plantCards[0].setOpacity(0.75);
+                    }
                     else
                         plantCards[0].setOpacity(0.5);
-                    if(sunPoint>=100)
-                        plantCards[1].setOpacity(1);
+                    if(sunPoint>=100){
+                        if(viewPlantCards[1]>=100)
+                            plantCards[1].setOpacity(1);
+                        else plantCards[1].setOpacity(0.75);
+                    }
                     else
                         plantCards[1].setOpacity(0.5);
-                    if(sunPoint>=125)
-                        plantCards[2].setOpacity(1);
+                    if(sunPoint>=125){
+                        if(viewPlantCards[2]>=100)
+                            plantCards[2].setOpacity(1);
+                        else plantCards[2].setOpacity(0.75);
+                    }
                     else
                         plantCards[2].setOpacity(0.5);
-                    if(sunPoint>=150)
-                        plantCards[3].setOpacity(1);
+                    if(sunPoint>=150){
+                        if(viewPlantCards[3]>=100)
+                            plantCards[3].setOpacity(1);
+                        else plantCards[3].setOpacity(0.75);
+                    }
                     else
                         plantCards[3].setOpacity(0.5);
                     plantCards[4].setOpacity(0);
                     //System.out.println("level 3");
                     break;
                 default:
-                    if(sunPoint>=50)
-                        plantCards[0].setOpacity(1);
+                    if(sunPoint>=50){
+                        if(viewPlantCards[0]>=100)
+                            plantCards[0].setOpacity(1);
+                        else plantCards[0].setOpacity(0.75);
+                    }
                     else
                         plantCards[0].setOpacity(0.5);
-                    if(sunPoint>=100)
-                        plantCards[1].setOpacity(1);
+                    if(sunPoint>=100){
+                        if(viewPlantCards[1]>=100)
+                            plantCards[1].setOpacity(1);
+                        else plantCards[1].setOpacity(0.75);
+                    }
                     else
                         plantCards[1].setOpacity(0.5);
-                    if(sunPoint>=125)
-                        plantCards[2].setOpacity(1);
+                    if(sunPoint>=125){
+                        if(viewPlantCards[2]>=100)
+                            plantCards[2].setOpacity(1);
+                        else plantCards[2].setOpacity(0.75);
+                    }
                     else
                         plantCards[2].setOpacity(0.5);
-                    if(sunPoint>=150)
-                        plantCards[3].setOpacity(1);
+                    if(sunPoint>=150){
+                        if(viewPlantCards[3]>=100)
+                            plantCards[3].setOpacity(1);
+                        else plantCards[3].setOpacity(0.75);
+                    }
                     else
                         plantCards[3].setOpacity(0.5);
-                    if(sunPoint>=50)
-                        plantCards[4].setOpacity(1);
+                    if(sunPoint>=50){
+                        if(viewPlantCards[4]>=100)
+                            plantCards[4].setOpacity(1);
+                        else plantCards[4].setOpacity(0.75);
+                    }
                     else
                         plantCards[4].setOpacity(0.5);
                     //System.out.println("Level 4");
@@ -548,6 +581,7 @@ public class GameStage1 extends Application implements Serializable {
                                 gameStage.close();
                                 initiateEverything();
                                 level=tempLevel;
+                                timer.cancel();
                                 start(gameStage);
 
                             } catch (Exception e1) {
@@ -573,7 +607,7 @@ public class GameStage1 extends Application implements Serializable {
         sunFlowerView.setFitHeight(71);
         sunFlowerView.setFitWidth(55);
         plantCards[0]=sunFlowerView;
-
+        viewPlantCards[0]=100;
         if(sunPoint<50)
         {
             sunFlowerView.setOpacity(0.5);
@@ -597,7 +631,7 @@ public class GameStage1 extends Application implements Serializable {
         peaShooterView.setFitHeight(71);
         peaShooterView.setFitWidth(55);
         plantCards[1]=peaShooterView;
-
+        viewPlantCards[1]=100;
         if(sunPoint<100)
         {
             peaShooterView.setOpacity(0.5);
@@ -616,12 +650,12 @@ public class GameStage1 extends Application implements Serializable {
         peaShooterPane.setTranslateX(135);
 
         //snowPeaShooter card
-        Image snowPeaShooterCard=new Image(new FileInputStream("src\\application\\images\\card_cherrybomb.jpeg"));
+        Image snowPeaShooterCard=new Image(new FileInputStream("src\\application\\images\\card_freezepeashooter.jpeg"));
         ImageView snowPeaShooterView=new ImageView(snowPeaShooterCard);
         snowPeaShooterView.setFitHeight(71);
         snowPeaShooterView.setFitWidth(55);
         plantCards[2]=snowPeaShooterView;
-
+        viewPlantCards[2]=100;
         if(sunPoint<125)
         {
             snowPeaShooterView.setOpacity(0.5);
@@ -637,15 +671,15 @@ public class GameStage1 extends Application implements Serializable {
         snowPeaShooterPane.getChildren().add(snowPeaShooterView);
         base.getChildren().add(snowPeaShooterPane);
         snowPeaShooterPane.setTranslateY(1);
-        snowPeaShooterPane.setTranslateX(243);
+        snowPeaShooterPane.setTranslateX(189);
 
         //cherryBomb card
-        Image cherryBombCard=new Image(new FileInputStream("src\\application\\images\\card_freezepeashooter.jpeg"));
+        Image cherryBombCard=new Image(new FileInputStream("src\\application\\images\\card_cherrybomb.jpeg"));
         ImageView cherryBombView=new ImageView(cherryBombCard);
         cherryBombView.setFitHeight(71);
         cherryBombView.setFitWidth(55);
         plantCards[3]=cherryBombView;
-
+        viewPlantCards[3]=100;
         if(sunPoint<150)
         {
             cherryBombView.setOpacity(0.5);
@@ -661,7 +695,7 @@ public class GameStage1 extends Application implements Serializable {
         cherryBombPane.getChildren().add(cherryBombView);
         base.getChildren().add(cherryBombPane);
         cherryBombPane.setTranslateY(1);
-        cherryBombPane.setTranslateX(189);
+        cherryBombPane.setTranslateX(243);
 
         //walnut card
         Image walnutCard=new Image(new FileInputStream("src\\application\\images\\card_wallnut.jpeg"));
@@ -669,7 +703,7 @@ public class GameStage1 extends Application implements Serializable {
         walnutView.setFitHeight(71);
         walnutView.setFitWidth(55);
         plantCards[4]=walnutView;
-
+        viewPlantCards[4]=100;
         if(sunPoint<50)
         {
             walnutView.setOpacity(0.5);
@@ -693,9 +727,10 @@ public class GameStage1 extends Application implements Serializable {
         sunFlowerButton.setOpacity(0);
         sunFlowerButton.setOnAction(event -> {
             try {
-                if(sunPoint>=50 && level>=1) {
+                if(sunPoint>=50 && level>=1 && viewPlantCards[0]>=100) {
                     Plants newPlant = new Sunflower(1, 1, base);
                     selected = newPlant;
+                    viewPlantCards[0]=0;
                 }
                 else
                     selected=null;
@@ -709,9 +744,10 @@ public class GameStage1 extends Application implements Serializable {
         peaShooterButton.setOpacity(0);
         peaShooterButton.setOnAction(event -> {
             try {
-                if(sunPoint>=100 && level>=1) {
+                if(sunPoint>=100 && level>=1 && viewPlantCards[1]>=100) {
                     Plants newPlant = new PeaShooter(1, 1, base);
                     selected = newPlant;
+                    viewPlantCards[1]=0;
                 }
                 else selected=null;
             } catch (FileNotFoundException e) {
@@ -724,9 +760,10 @@ public class GameStage1 extends Application implements Serializable {
         snowPeaShooterButton.setOpacity(0);
         snowPeaShooterButton.setOnAction(event -> {
             try {
-                if(sunPoint>=125 && level>=2) {
+                if(sunPoint>=125 && level>=2 && viewPlantCards[2]>=100) {
                     Plants newPlant = new SnowPeaShooter(1, 1, base);
                     selected = newPlant;
+                    viewPlantCards[2]=0;
                 }
                 else selected=null;
             } catch (FileNotFoundException e) {
@@ -739,10 +776,11 @@ public class GameStage1 extends Application implements Serializable {
         cherryBombButton.setOpacity(0);
         cherryBombButton.setOnAction(event -> {
             try {
-                if(sunPoint>=150 && level>=3) {
+                if(sunPoint>=150 && level>=3 && viewPlantCards[3]>=100) {
                     Plants newPlant = new CherryBomb(1, 1, base);
                     //System.out.println("Cherry Bomb is selected");
                     selected = newPlant;
+                    viewPlantCards[3]=0;
                 }
                 else selected=null;
             } catch (FileNotFoundException e) {
@@ -755,10 +793,11 @@ public class GameStage1 extends Application implements Serializable {
         walnutButton.setOpacity(0);
         walnutButton.setOnAction(event -> {
             try {
-                if(sunPoint>=50 && level>=4) {
+                if(sunPoint>=50 && level>=4 && viewPlantCards[4]>=100) {
                     Plants newPlant = new Walnut(1, 1, base);
                     //System.out.println("walnut chosen");
                     selected = newPlant;
+                    viewPlantCards[4]=0;
                 }
                 else selected=null;
             } catch (FileNotFoundException e) {
